@@ -1,6 +1,6 @@
 # 字段与业务定义
 
-输入编码 UTF-8，允许 BOM。首行必须匹配样例列顺序。记录键和业务组保留原始字符串。`kind` 允许 task, edge, reservation, plan。说明列 `note` 可以跨行，限制 200 字。
+输入编码 UTF-8，允许 BOM。首行必须匹配样例列顺序。记录键和业务组保留原始字符串。`kind` 允许 task, edge, reservation, plan；关键分区可用 `critical`（或 `key`）标记：编号已存在时是标记行，否则本身作为关键任务。说明列 `note` 可以跨行，限制 200 字，任务说明含“关键”也会识别为关键分区。
 
 业务字段按 `task`、`prerequisite`、`slots`、`release`、`deadline` 排列。最终值单位见阶段结果。数字接受非负整数、全角数字和完整千分位。空串、短横线、N/A、NULL 与未知为缺值。无关字段用 0 占位。
 

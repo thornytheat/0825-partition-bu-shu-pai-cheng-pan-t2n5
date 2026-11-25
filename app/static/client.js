@@ -2,7 +2,11 @@ export async function request(path, options) {
   const response = await fetch(path, options);
   if (!response.ok) {
     const error = await response.json().catch(() => ({}));
-    throw new Error(error.message || `请求失败 · ${response.status}`);
+    const failure = new Error(error.message || `请求失败 · ${response.status}`);
+    failure.code = error.code;
+    failure.codes = error.codes;
+    failure.status = response.status;
+    throw failure;
   }
   return response.json();
 }

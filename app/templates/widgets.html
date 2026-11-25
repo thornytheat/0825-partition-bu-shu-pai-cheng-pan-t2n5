@@ -32,6 +32,19 @@
 {% macro inspection() %}
 <section class="panel inspection"><h2 id="detail-title">采信摘要</h2><div id="detail"></div></section>
 {% endmacro %}
+{% macro board() %}
+<section class="panel board" id="board-panel" aria-labelledby="board-title">
+  <div class="panel-head"><h2 id="board-title">关键分区与预留</h2><span class="board-hint">签发配额状态：</span><span id="quota-summary" aria-live="polite"></span></div>
+  <p class="board-hint">标出关键分区后按“关键数优先、普通数次之”重排；排程与未排上的原因可在分组详情和 <code>/api/runs/&lt;id&gt;/schedule</code> 查询。上游预留更新会使旧排程失效并重算。</p>
+  <div id="critical-tools" class="critical-tools" aria-label="关键分区标记"></div>
+  <form id="reservation-form" class="reservation-form">
+    <label>预留起 <input name="release" type="number" min="0" step="1" placeholder="如 1"></label>
+    <label>预留止（左闭右开） <input name="deadline" type="number" min="1" step="1" placeholder="如 3"></label>
+    <button type="submit">更新预留并重算</button>
+  </form>
+  <div id="board-notice" class="board-notice" role="status" aria-live="polite"></div>
+</section>
+{% endmacro %}
 {% macro archive() %}
 <aside class="panel archive" id="review-area"><h2>批次复核</h2><ul id="history"></ul>
   <form id="review" hidden>

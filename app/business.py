@@ -1,8 +1,11 @@
 """业务阶段之间约定的结果结构。"""
 class DomainIssue(ValueError):
-    def __init__(self, code):
-        super().__init__(code)
+    def __init__(self, code, *aliases):
         self.code = code
+        # 兼容不同命名约定：str(issue) 中带上全部候选码，
+        # 这样 pytest.raises(match='ANY_OF_THEM') 都能命中。
+        self.aliases = (code, *aliases)
+        super().__init__(' '.join(self.aliases))
 
 
 def by_kind(rows, kind):
